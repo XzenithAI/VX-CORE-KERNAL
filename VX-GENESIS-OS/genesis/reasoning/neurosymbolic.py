@@ -150,9 +150,9 @@ class NeuroSymbolicReasoner:
         # Encode consciousness state
         if 'consciousness_state' in state:
             cs = state['consciousness_state']
-            cs_vector = np.zeros(4)
+            cs_vector = np.zeros(5)  # 5 states: DORMANT, AWARE, REFLECTIVE, SELF_MODIFYING, TRANSCENDENT
             if hasattr(cs, 'value'):
-                cs_vector[cs.value] = 1.0
+                cs_vector[min(cs.value, 4)] = 1.0  # Clamp to valid range
             features.append(cs_vector)
 
         # Encode performance metrics
